@@ -22,9 +22,4 @@ final case class ModelTemplate(vString: String
                                , vFloat: Float
                                , vDouble: Double
                                , vSeqInt: Seq[Int]
-                               , vListInt: List[Int]
-//                               , vMapInt: Map[Int, Int]
-//                               , vSeqString: Seq[String]
-//                               , vListString: List[String]
-//                               , vMapString: Map[String, String]
-                              )
+                               , vListInt: List[Int])
