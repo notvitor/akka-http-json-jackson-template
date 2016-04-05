@@ -26,4 +26,5 @@ object ApiStatusMessages {
 
   val unknownException = "An error occurred during the request."
 }
-case class ApiStatus(message:String)
+
+case class ApiMessage(message:String)

@@ -21,6 +21,6 @@ import spray.json.DefaultJsonProtocol
 
 trait ProtocolsTemplate extends DefaultJsonProtocol with SprayJsonSupport{
 
-  implicit val apiStatusFormat = jsonFormat1(ApiStatus.apply)
+  implicit val apiStatusFormat = jsonFormat1(ApiMessage.apply)
   implicit val modelTemplateFormat = jsonFormat7(ModelTemplate.apply)
 }

@@ -21,7 +21,7 @@ import akka.http.scaladsl.model.headers.RawHeader
 import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.server.Directives._
 import com.github.notvitor.http.config.ServerSettingsTemplate
-import com.github.notvitor.http.model.{ModelTemplate, ApiStatusMessages, ApiStatus, ProtocolsTemplate}
+import com.github.notvitor.http.model.{ModelTemplate, ApiStatusMessages, ApiMessage, ProtocolsTemplate}
 import com.github.notvitor.http.repository.RepositoryTemplate
 import scala.concurrent.Future
 
@@ -35,7 +35,7 @@ object AkkaHttpRoutesTemplate extends ProtocolsTemplate with ResponseFactory {
       get {
         path("status") {
           extractRequest { req =>
-            sendResponse(Future(ApiStatus(ApiStatusMessages.currentStatus())))
+            sendResponse(Future(ApiMessage(ApiStatusMessages.currentStatus())))
           }
         } ~
         path("models" / IntNumber) { (amount) =>
@@ -50,10 +50,10 @@ object AkkaHttpRoutesTemplate extends ProtocolsTemplate with ResponseFactory {
         }
       } ~
       post {
-        path("models"){
+        path("model"){
           decodeRequest {
             entity(as[ModelTemplate]) { model =>
-              complete(s"model.vString: ${model.vString} - model.vListInt: ${model.vListInt}")
+              sendResponse(Future(ApiMessage(s"model.vString: ${model.vString} - model.vListInt: ${model.vListInt}")))
             }
           }
         }

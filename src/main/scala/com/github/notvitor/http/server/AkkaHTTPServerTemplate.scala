@@ -23,6 +23,7 @@ import akka.stream.scaladsl.{Sink, Source}
 import com.github.notvitor.http.config.ServerSettingsTemplate
 import com.github.notvitor.http.routes.AkkaHttpRoutesTemplate
 import scala.concurrent.Future
+import scala.io.StdIn
 
 
 object AkkaHttpServerTemplate extends App {
@@ -32,9 +33,7 @@ object AkkaHttpServerTemplate extends App {
   val server: Source[IncomingConnection, Future[ServerBinding]] =
     Http(actorSystem).bind(httpInterface, httpPort)
 
-  log.info(s"\nAkka HTTP Server - Version ${actorSystem.settings.ConfigVersion} - running at http://$httpInterface:$httpPort/"
-    + s"\nPress RETURN to stop...")
-
+  log.info(s"\nAkka HTTP Server - Version ${actorSystem.settings.ConfigVersion} - running at http://$httpInterface:$httpPort/")
 
   val handler: Future[ServerBinding] =
     server
@@ -48,7 +47,7 @@ object AkkaHttpServerTemplate extends App {
 
   handler onFailure { case ex: Exception => log.error(ex, "Failed to bind to {}:{}", httpInterface, httpPort) }
 
-  Console.readLine()
+  StdIn.readLine(s"\nPress RETURN to stop...")
 
   handler
     .flatMap(binding => binding.unbind())

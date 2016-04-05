@@ -21,7 +21,7 @@ import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server._
 import com.github.notvitor.http.config.ServerSettingsTemplate
-import com.github.notvitor.http.model.{ApiStatusMessages, ApiStatus, ProtocolsTemplate}
+import com.github.notvitor.http.model.{ApiStatusMessages, ApiMessage, ProtocolsTemplate}
 import scala.concurrent.Future
 import scala.util.{Failure, Success}
 
@@ -36,7 +36,7 @@ trait ResponseFactory extends ProtocolsTemplate {
         complete(result)
       case Failure(e) =>
         log.error(s"Error: ${e.toString}")
-        complete(ToResponseMarshallable(InternalServerError -> ApiStatus(ApiStatusMessages.unknownException)))
+        complete(ToResponseMarshallable(InternalServerError -> ApiMessage(ApiStatusMessages.unknownException)))
     }
   }
 }
