@@ -24,13 +24,13 @@ lazy val buildSettings = Seq(
   )
 )
 
-val akkaVersion = "2.4.3"
+val akkaVersion = "2.4.4"
 val scalaTestV  = "2.2.6"
 
 lazy val `template` = project
   .in(file("."))
   .settings(buildSettings: _*)
-  .settings(mainClass in assembly := Some("com.github.notvitor.http.server.ServerTemplate"))
+  .settings(mainClass in assembly := Some("com.github.notvitor.http.server.AkkaHttpServerTemplate"))
   .settings(
     name := "akka-http-json-spray-template",
     libraryDependencies ++= Seq(
